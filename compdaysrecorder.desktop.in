@@ -1,0 +1,8 @@
+[Desktop Entry]
+_Name=Compdaysrecorder
+_Comment=Compdaysrecorder application
+Categories=GNOME;Utility;
+Exec=compdaysrecorder
+Icon=compdaysrecorder
+Terminal=false
+Type=Application
