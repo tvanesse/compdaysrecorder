@@ -8,7 +8,7 @@ import sys
 class Recorder :
 	
 	def __init__(self):
-		self.REC_PATH = "data/records/0102032014.rec"
+		self.REC_PATH = "data/records/record.rec"
 		self.QUOTA_PATH = "data/records/quota.rec"
 		self.REC_LINE_LEN = 13
 		self.NIGHT_BONUS = 0.25
@@ -27,27 +27,30 @@ class Recorder :
 		
 		
 	'''
-	Loads all the entries in a dictionary
+	Loads all the entries in a dictionary where keys are datetime objects and
+	values are subdictionary of the form {shift, extra} where
+		- shift is a char amongst {d,a,n,o,h}
+		- extra is an int
 	'''
 	def loadEntries(self):
-		#TODO convert the date string to a datetime object straight away
 		# Open the file and browse.
 		with open(self.REC_PATH, 'rb') as f:
 			reader = csv.DictReader(f, dialect='excel', delimiter=',')
 			
 			for row in reader:
-				self.entries[row['Date']] = {'shift':row['Shift'], 'extra':int(row['Extra'])}
+				date = datetime.strptime(row['Date'], "%d%m%Y")
+				self.entries[date] = {'shift':row['Shift'], 'extra':int(row['Extra'])}
 		
 		return self.entries
 		
 	
 	'''
 	Returns the entry corresponding to the parameter date.
-	The parameter date must be a string of the form ddmmyyyy.
+	The parameter date must be a datetime object.
 	
 	The returned value is either -1 if the entry was not found
 	or a dictionary of the form {shift, extra} where
-		- shift is a char amongst {d,a,n,o}
+		- shift is a char amongst {d,a,n,o,h}
 		- extra is an int
 	'''		
 	def findEntry(self,date):
@@ -61,17 +64,27 @@ class Recorder :
 	Returns the last entry in the record file.
 	The returned value is a dictionary {date, shift, extra}
 	where 
-		- date is a string of the form ddmmyyyy
-		- shift is a char amongst {d,a,n,o}
+		- date is a datetime object
+		- shift is a char amongst {d,a,n,o,h}
 		- extra is an int
 	'''
 	def findLastEntry(self):
-		result = datetime.min	# the minimum representable date from datetime module
+		last = datetime.min	# the minimum representable date from datetime module
 		for d in self.entries.keys() :
-			v = datetime.strptime(d, "%d%m%Y")
-			if v > result : result = v
+			if d > last : last = d
 		
-		return result
+		return {'date':last, 'shift':self.entries[last]['shift'], 'extra':self.entries[last]['extra']}
+		
+	
+	'''
+	Returns the first entry of the record file.
+	'''
+	def findFirstEntry(self):
+		first = datetime.max
+		for d in self.entries.keys():
+			if d < first : first = d
+			
+		return {'date':first, 'shift':self.entries[first]['shift'], 'extra':self.entries[first]['extra']}
 	
 	
 	'''
@@ -79,36 +92,50 @@ class Recorder :
 	already exists.
 	'''
 	def writeEntry(self, date, shift, extra):
+		# String convertion
+		dateStr = datetime.strftime(date, "%d%m%Y")
+		
+		first = self.findFirstEntry()['date']
+		last = self.findLastEntry()['date']
+		
 		# Check if this entry is the most recent one.
-		last = datetime.strptime(self.findLastEntry()['date'], "%d%m%Y")
-		this = datetime.strptime(date, "%d%m%Y")
-		if this > last :
+		if date > last :
 			# Then simply add a new entry at the very end of the file
 			with open(self.REC_PATH, 'a') as f:
-				f.write("{},{},{}\n".format(date,shift,extra))
-				return 0
+				f.write("{},{},{}\n".format(dateStr,shift,extra))
 		
-		# Insert the entry
-		theDayAfter = this+timedelta(days=1)
-		flag = False
-		for line in fileinput.input(self.REC_PATH, inplace=1):
-			if flag == False :
-				if date in line :
-					line = "{},{},{}\n".format(date,shift,extra)
-					flag = True
-				elif datetime.strftime(theDayAfter, "%d%m%Y") in line:
-					# insert our entry just before this line
-					newLine = "{},{},{}\n".format(date,shift,extra)
-					sys.stdout.write(newLine)
-					flag = True
+		# Check if this entry is the oldest one.
+		elif date < first :
+			# Add the new entry at the very beginning of the file
+			for line in fileinput.input(self.REC_PATH, inplace=1):
+				if line.split(',')[0]=="Date" :
+					sys.stdout.write(line)
+					sys.stdout.write("{},{},{}\n".format(dateStr,shift,extra))
+				else :
+					sys.stdout.write(line)
+					
+		# Insert the entry in the middle
+		#TODO handle the case where date is in a hole without any surrounding entry.
+		else :
+			theDayAfter = date+timedelta(days=1)
+			flag = False
+			for line in fileinput.input(self.REC_PATH, inplace=1):
+				if flag == False :
+					if dateStr in line :
+						line = "{},{},{}\n".format(dateStr,shift,extra)
+						flag = True
+					elif datetime.strftime(theDayAfter, "%d%m%Y") in line:
+						# insert our entry just before this line
+						newLine = "{},{},{}\n".format(dateStr,shift,extra)
+						sys.stdout.write(newLine)
+						flag = True
 				
-				sys.stdout.write(line)
-			else :
-				sys.stdout.write(line)
-		
-		#Update self.entries when loadEntry is implemented
-		self.entries[date]['shift'] = shift
-		self.entries[date]['extra'] = extra
+					sys.stdout.write(line)
+				else :
+					sys.stdout.write(line)
+				
+		#Update self.entries
+		self.entries[date] = {'shift':shift, 'extra':extra}
 		
 			
 	'''

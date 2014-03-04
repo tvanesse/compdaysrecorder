@@ -13,6 +13,8 @@ logger = logging.getLogger('compdaysrecorder')
 
 from Recorder import Recorder
 
+from datetime import datetime
+
 from compdaysrecorder_lib import Window
 from compdaysrecorder.AboutCompdaysrecorderDialog import AboutCompdaysrecorderDialog
 from compdaysrecorder.PreferencesCompdaysrecorderDialog import PreferencesCompdaysrecorderDialog
@@ -83,15 +85,14 @@ class CompdaysrecorderWindow(Window):
     def on_calendar_daySelected(self, widget):
         # Parse the date selected
         year, month, day = self.calendar.get_date()
-        dateStr = "{0:02d}{1:02d}{2:04d}".format(day, month+1, year)
+        dateObj = datetime(year, month+1, day)
         
         self.dateLabel.set_text("{0:02d}/{1:02d}/{2:04d}".format(day, month+1, year))
         
         # Do we already have an entry for this date ?
-        r = self.recorder.findEntry(dateStr)
+        r = self.recorder.findEntry(dateObj)
         if (r != -1):
             # The entry already exist.
-            #self.calendar.mark_day(day)
             tmp = r['shift']
             if (tmp=='d') : self.dRadioButton.set_active(True)
             elif (tmp=='a') : self.aRadioButton.set_active(True)
@@ -100,7 +101,6 @@ class CompdaysrecorderWindow(Window):
             else : self.hRadioButton.set_active(True)
             
             self.extraSpinButton.set_value(r['extra'])
-            
             # Disable editing.
             self.enableEdition(False)
         else :
@@ -113,12 +113,12 @@ class CompdaysrecorderWindow(Window):
         
     def on_saveButton_clicked(self, widget):
         year, month, day = self.calendar.get_date()
-        dateStr = "{0:02d}{1:02d}{2:04d}".format(day, month+1, year)
+        dateObj = datetime(year, month+1, day)
         
         shift = self.whoIsActive()
         
         extra = int(self.extraSpinButton.get_value())
         
-        self.recorder.writeEntry(dateStr, shift, extra)
+        self.recorder.writeEntry(dateObj, shift, extra)
         self.enableEdition(False)
         
