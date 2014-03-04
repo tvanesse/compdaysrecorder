@@ -97,6 +97,7 @@ class Recorder :
 		
 		first = self.findFirstEntry()['date']
 		last = self.findLastEntry()['date']
+		recorded = self.findEntry(date) != -1
 		
 		# Check if this entry is the most recent one.
 		if date > last :
@@ -116,22 +117,24 @@ class Recorder :
 					
 		# Insert the entry in the middle
 		else :
-			theDayAfter = date+timedelta(days=1)
-			flag = False
-			for line in fileinput.input(self.REC_PATH, inplace=1):
-				if flag == False :
+			insertDone = False
+			if not recorded :
+				# The entry to insert is a new one
+				for line in fileinput.input(self.REC_PATH, inplace=1):
+					tmp = line.split(',')[0]
+					if (tmp!="Date" and datetime.strptime(tmp, "%d%m%Y") > date and insertDone == False) :
+						# Just reached the first entry that is more recent than the date
+						# we want to insert.
+						# Insert the new entry just before the current line
+						sys.stdout.write("{},{},{}\n".format(dateStr,shift,extra))
+						insertDone = True
+					sys.stdout.write(line)
+			else :
+				# The entry to insert already exists. We only need to modify it.
+				for line in fileinput.input(self.REC_PATH, inplace=1):
 					if dateStr in line :
 						line = "{},{},{}\n".format(dateStr,shift,extra)
-						flag = True
-					elif datetime.strftime(theDayAfter, "%d%m%Y") in line:
-						# insert our entry just before this line
-						newLine = "{},{},{}\n".format(dateStr,shift,extra)
-						sys.stdout.write(newLine)
-						flag = True
-				
-					sys.stdout.write(line)
-				else :
-					sys.stdout.write(line)
+						sys.stdout.write(line)
 				
 		#Update self.entries
 		self.entries[date] = {'shift':shift, 'extra':extra}
