@@ -1,5 +1,4 @@
-from datetime import datetime
-from datetime import timedelta
+from datetime import datetime, timedelta
 import csv
 from collections import defaultdict
 import os
@@ -49,21 +48,7 @@ class Recorder :
 	or a dictionary of the form {shift, extra} where
 		- shift is a char amongst {d,a,n,o}
 		- extra is an int
-	'''
-	def findEntryBad(self, date):	
-		# Open the file and browse to the entry.
-		with open(self.REC_PATH, 'rb') as f:
-			reader = csv.DictReader(f, dialect='excel', delimiter=',')
-			
-			for row in reader:
-				if (row['Date'] == date):
-					# Return the shift type and the extra time.
-					return {"shift":row['Shift'], "extra":int(row['Extra'])}
-			
-			# Entry not found
-			return -1
-			
-			
+	'''		
 	def findEntry(self,date):
 		if date not in self.entries.keys() :
 			return -1
@@ -80,15 +65,13 @@ class Recorder :
 		- extra is an int
 	'''
 	def findLastEntry(self):
-		with open(self.REC_PATH, 'r') as f:
-			# The record file contains lines of constant length
-			f.seek(-self.REC_LINE_LEN, os.SEEK_END)
-			result = f.readline().split(',')
-			# Little hack just in case there is no entry in the file
-			if result[0] != "" :
-				return {"date":result[0], "shift":result[1], "extra":int(result[2])}
-			else :
-				return {"date":"01010001", "shift":'d', "extra":0}
+		result = datetime.min	# the minimum representable date from datetime module
+		for d in self.entries.keys() :
+			v = datetime.strptime(d, "%d%m%Y")
+			if v > result : result = v
+		
+		return result
+	
 	
 	'''
 	Writes an entry to the record file. Overwrite an entry if it
