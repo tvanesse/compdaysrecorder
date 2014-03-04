@@ -32,6 +32,7 @@ class CompdaysrecorderWindow(Window):
 
         # Code for other initialization actions should be added here.
         
+        
         self.recorder = Recorder()
         self.testButton = self.builder.get_object("testButton")
         
@@ -113,7 +114,6 @@ class CompdaysrecorderWindow(Window):
         
     def on_saveButton_clicked(self, widget):
         year, month, day = self.calendar.get_date()
-        dateStr = "{0:02d}{1:02d}{2:04d}".format(day, month+1, year)
         dateObj = datetime(year, month+1, day)
         
         shift = self.whoIsActive()

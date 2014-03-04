@@ -29,10 +29,14 @@ class CompdaysrecorderWindow(Window):
 
         self.AboutDialog = AboutCompdaysrecorderDialog
         self.PreferencesDialog = PreferencesCompdaysrecorderDialog
+        
+        # The status label
+        self.statusLabel = self.builder.get_object("statusLabel")
 
         # Code for other initialization actions should be added here.
-        
+        self.statusLabel.set_text("Loading record file...")
         self.recorder = Recorder()
+        self.statusLabel.set_text("Ready")
         self.testButton = self.builder.get_object("testButton")
         
         # Calendar

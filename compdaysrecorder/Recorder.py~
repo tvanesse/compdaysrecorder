@@ -15,8 +15,7 @@ class Recorder :
 		self.SAT_BONUS = 2
 		self.SUN_BONUS = 2
 		
-		# The following dictionary keeps track of the compensation hours earned/lost
-		# day after day.
+		# Keeps track of the compensation hours earned/lost day after day.
 		self.offHours = dict()
 		
 		# These are the entries
@@ -134,26 +133,20 @@ class Recorder :
 				for line in fileinput.input(self.REC_PATH, inplace=1):
 					if dateStr in line :
 						line = "{},{},{}\n".format(dateStr,shift,extra)
-						sys.stdout.write(line)
+					
+					sys.stdout.write(line)
 				
 		#Update self.entries
 		self.entries[date] = {'shift':shift, 'extra':extra}
 		
 			
 	'''
-	Compute the compensation hours by browsing the whole record file and generating
-	another file with the comp hours evolution.
-	'''	
+	Compute the compensation hours by browsing the entries and populating self.offHours
+	'''
 	def computeOffHours(self):
-		# Browse the record file
-		with open(self.REC_PATH, 'rb') as frec :
-			recReader = csv.DictReader(frec, dialect='excel', delimiter=',')
-			# Overwrite the quota file
-			for row in recReader:
-				date = row['Date']				
-				for line in fileinput.input(self.QUOTA_PATH, inplace=1):
-					if date in line :
-						sys.stdout.write()
+		# Browse the entries
+		for (k, v) in self.entries.items() :
+			
 		
 			
 	'''
