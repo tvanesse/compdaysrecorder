@@ -64,18 +64,6 @@ class Recorder :
 		- shift is a char amongst {d,a,n,o}
 		- extra is an int
 	'''
-	def findLastEntryBad(self):
-		with open(self.REC_PATH, 'r') as f:
-			# The record file contains lines of constant length
-			f.seek(-self.REC_LINE_LEN, os.SEEK_END)
-			result = f.readline().split(',')
-			# Little hack just in case there is no entry in the file
-			if result[0] != "" :
-				return {"date":result[0], "shift":result[1], "extra":int(result[2])}
-			else :
-				return {"date":"01010001", "shift":'d', "extra":0}
-	
-	
 	def findLastEntry(self):
 		result = datetime.min	# the minimum representable date from datetime module
 		for d in self.entries.keys() :
@@ -90,7 +78,6 @@ class Recorder :
 	already exists.
 	'''
 	def writeEntry(self, date, shift, extra):
-		#TODO : update self.entries when loadEntry is implemented
 		# Check if this entry is the most recent one.
 		last = datetime.strptime(self.findLastEntry()['date'], "%d%m%Y")
 		this = datetime.strptime(date, "%d%m%Y")
@@ -117,6 +104,11 @@ class Recorder :
 				sys.stdout.write(line)
 			else :
 				sys.stdout.write(line)
+		
+		#Update self.entries when loadEntry is implemented
+		self.entries[date]['shift'] = shift
+		self.entries[date]['extra'] = extra
+		
 			
 	'''
 	Compute the compensation hours by browsing the whole record file and generating

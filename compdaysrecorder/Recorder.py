@@ -30,6 +30,7 @@ class Recorder :
 	Loads all the entries in a dictionary
 	'''
 	def loadEntries(self):
+		#TODO convert the date string to a datetime object straight away
 		# Open the file and browse.
 		with open(self.REC_PATH, 'rb') as f:
 			reader = csv.DictReader(f, dialect='excel', delimiter=',')
@@ -78,7 +79,6 @@ class Recorder :
 	already exists.
 	'''
 	def writeEntry(self, date, shift, extra):
-		#TODO : update self.entries when loadEntry is implemented
 		# Check if this entry is the most recent one.
 		last = datetime.strptime(self.findLastEntry()['date'], "%d%m%Y")
 		this = datetime.strptime(date, "%d%m%Y")
@@ -105,6 +105,11 @@ class Recorder :
 				sys.stdout.write(line)
 			else :
 				sys.stdout.write(line)
+		
+		#Update self.entries when loadEntry is implemented
+		self.entries[date]['shift'] = shift
+		self.entries[date]['extra'] = extra
+		
 			
 	'''
 	Compute the compensation hours by browsing the whole record file and generating
