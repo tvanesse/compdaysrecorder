@@ -13,7 +13,7 @@ logger = logging.getLogger('compdaysrecorder')
 
 from Recorder import Recorder
 
-from datetime import datetime
+from datetime import date
 
 from compdaysrecorder_lib import Window
 from compdaysrecorder.AboutCompdaysrecorderDialog import AboutCompdaysrecorderDialog
@@ -89,7 +89,7 @@ class CompdaysrecorderWindow(Window):
     def on_calendar_daySelected(self, widget):
         # Parse the date selected
         year, month, day = self.calendar.get_date()
-        dateObj = datetime(year, month+1, day)
+        dateObj = date(year, month+1, day)
         
         self.dateLabel.set_text("{0:02d}/{1:02d}/{2:04d}".format(day, month+1, year))
         
@@ -117,7 +117,7 @@ class CompdaysrecorderWindow(Window):
         
     def on_saveButton_clicked(self, widget):
         year, month, day = self.calendar.get_date()
-        dateObj = datetime(year, month+1, day)
+        dateObj = date(year, month+1, day)
         
         shift = self.whoIsActive()
         

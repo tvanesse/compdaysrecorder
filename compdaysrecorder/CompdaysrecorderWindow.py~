@@ -29,11 +29,14 @@ class CompdaysrecorderWindow(Window):
 
         self.AboutDialog = AboutCompdaysrecorderDialog
         self.PreferencesDialog = PreferencesCompdaysrecorderDialog
+        
+        # The status label
+        self.statusLabel = self.builder.get_object("statusLabel")
 
         # Code for other initialization actions should be added here.
-        
-        
+        self.statusLabel.set_text("Loading record file...")
         self.recorder = Recorder()
+        self.statusLabel.set_text("Ready")
         self.testButton = self.builder.get_object("testButton")
         
         # Calendar
@@ -86,7 +89,7 @@ class CompdaysrecorderWindow(Window):
     def on_calendar_daySelected(self, widget):
         # Parse the date selected
         year, month, day = self.calendar.get_date()
-        dateObj = datetime(year, month+1, day)
+        dateObj = date(year, month+1, day)
         
         self.dateLabel.set_text("{0:02d}/{1:02d}/{2:04d}".format(day, month+1, year))
         
