@@ -84,7 +84,7 @@ class CompdaysrecorderWindow(Window):
             
         
     def on_testButton_clicked(self, widget):
-        self.recorder.findLastEntry()
+        self.recorder.computeOffHours()
 
     def on_calendar_daySelected(self, widget):
         # Parse the date selected
