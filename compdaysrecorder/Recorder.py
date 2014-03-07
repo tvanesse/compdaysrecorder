@@ -155,6 +155,19 @@ class Recorder :
 		#Update self._entries
 		self._entries[date] = {'shift':shift, 'extra':extra}
 		
+	
+	def removeEntry(self, date):
+		# Assert the entry corresponding to `date` is already recorded
+		if self.findEntry(date) != -1 :
+			for line in fileinput.input(self._REC_PATH, inplace=1):
+				if dt.strftime(date, "%d%m%Y") in line :
+					continue
+				else :
+					sys.stdout.write(line)
+			return 0
+		else :
+			return -1
+		
 		
 	def isSunday(self, date) :
 		if date.isoweekday() == 7 :

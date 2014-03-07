@@ -155,6 +155,18 @@ class Recorder :
 		#Update self._entries
 		self._entries[date] = {'shift':shift, 'extra':extra}
 		
+	
+	def removeEntry(self, date):
+		# Assert the entry corresponding to `date` is already recorded
+		if self.findEntry(date) != -1 :
+			for line in fileinput.input(self._REC_PATH, inplace=1):
+				if dt.strftime(date, "%d%m%Y") in line :
+					continue
+				else :
+					sys.stdout.write(line)
+		else :
+			return -1
+		
 		
 	def isSunday(self, date) :
 		if date.isoweekday() == 7 :
@@ -199,7 +211,7 @@ class Recorder :
 	def plotOffHours(self):
 		(t, val) = self.orderDict(self._offHours)
 		# Convert date objects to indexes
-		f = Figure(figsize=(1,8), dpi=100)
+		f = Figure(figsize=(6,4), dpi=100)
 		a = f.add_subplot(111)
 		a.plot(t,val, "-o")
 		a.grid(True)

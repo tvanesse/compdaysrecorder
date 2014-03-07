@@ -102,10 +102,7 @@ class CompdaysrecorderWindow(Window):
             
         
     def on_testButton_clicked(self, widget):
-        plot = self.recorder.plotOffHours()
-        self.plotArea.add(plot)
-        self.plotArea.set_visible(True)
-        self.plotArea.show()
+        self.recorder.
 
     def on_calendar_daySelected(self, widget):
         # Parse the date selected
