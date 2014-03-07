@@ -59,6 +59,24 @@ class CompdaysrecorderWindow(Window):
         self.editButton = self.builder.get_object("editButton")
         self.saveButton = self.builder.get_object("saveButton")
         
+        # Plot area
+        self.plotArea = self.builder.get_object("plotArea")
+        self.displayPlotArea = self.builder.get_object("displayPlotArea")
+        self.leftArrow = self.builder.get_object("leftArrow")
+        self.rightArrow = self.builder.get_object("rightArrow")
+        
+    def on_displayPlotArea_toggled(self, widget):
+        if self.displayPlotArea.get_active() :
+            plot = self.recorder.plotOffHours()
+            self.plotArea.add(plot)
+            self.plotArea.set_visible(True)
+            self.plotArea.show()
+            self.displayPlotArea.set_image(self.leftArrow)
+        else :
+            self.plotArea.set_visible(False)
+            self.displayPlotArea.set_image(self.rightArrow)
+            
+        
     def whoIsActive(self):
         if (self.dRadioButton.get_active()) : return 'd'
         elif (self.aRadioButton.get_active()) : return 'a'
@@ -84,7 +102,10 @@ class CompdaysrecorderWindow(Window):
             
         
     def on_testButton_clicked(self, widget):
-        self.recorder.computeOffHours()
+        plot = self.recorder.plotOffHours()
+        self.plotArea.add(plot)
+        self.plotArea.set_visible(True)
+        self.plotArea.show()
 
     def on_calendar_daySelected(self, widget):
         # Parse the date selected

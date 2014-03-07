@@ -6,6 +6,11 @@ import os
 import fileinput
 import sys
 
+# Matplotlib
+from matplotlib.backends.backend_gtk3agg import FigureCanvasGTK3Agg as FigureCanvas
+from matplotlib.figure import Figure
+from numpy import *
+
 class Recorder :
 	
 	def __init__(self):
@@ -13,8 +18,8 @@ class Recorder :
 		self._QUOTA_PATH = "data/records/quota.rec"
 		self._STD_DAY = 8					# number of hours in a regular day
 		self._NIGHT_TIME_BONUS = 0.25		# I earn (_STD_DAY * NIGHT_BONUS) compensation hours if I work by night
-		self._WE_TIME_BONUS = 2				# Weekend
-		self._OVT_TIME_BONUS = 0				# extra time
+		self._SUN_TIME_BONUS = 1
+		self._OVT_TIME_BONUS = 0			# extra time
 		
 		# Keeps track of the compensation hours earned/lost day after day.
 		self._offHours = dict()
@@ -24,6 +29,16 @@ class Recorder :
 		
 		# Load the record file
 		self.load_entries()
+		self.computeOffHours()
+		
+		
+	def orderDict(self, d):
+		keysList = sorted(d.keys())
+		valuesList = list()
+		for elem in keysList:
+			valuesList.append(d[elem])
+			
+		return (keysList, valuesList)
 		
 		
 	'''
@@ -141,8 +156,8 @@ class Recorder :
 		self._entries[date] = {'shift':shift, 'extra':extra}
 		
 		
-	def isWeekend(self, date) :
-		if date.isoweekday() == 6 or date.isoweekday() == 7 :
+	def isSunday(self, date) :
+		if date.isoweekday() == 7 :
 			return True
 		else :
 			return False
@@ -151,7 +166,7 @@ class Recorder :
 	'''
 	Compute the compensation hours by browsing the _entries and populating self._offHours
 	'''
-	def compute_offHours(self):
+	def computeOffHours(self):
 		acc = 0
 		# Browse the _entries
 		for (k, v) in self._entries.items() :
@@ -161,45 +176,38 @@ class Recorder :
 			if shift != 'h' :
 				if shift == 'o' : acc -= self._STD_DAY
 			
-				elif self.isWeekend(k) :
-					# Working during the week-end
-					if shift == 'n' : acc += self._STD_DAY*self._WE_TIME_BONUS + self._STD_DAY*self._NIGHT_TIME_BONUS
-					else : acc += self._STD_DAY*self._WE_TIME_BONUS
+				elif self.isSunday(k) :
+					# Working on Sunday
+					if shift == 'n' : acc += self._STD_DAY*self._SUN_TIME_BONUS + self._STD_DAY*self._NIGHT_TIME_BONUS
+					else : acc += self._STD_DAY*self._SUN_TIME_BONUS
 				
 				elif shift == 'n' :
 					# Working on a regular day
 					acc += self._STD_DAY*self._NIGHT_TIME_BONUS
+					
+			self._offHours[k] = acc
 			
 #			print("{} : ACC == {}".format(dt.strftime(k, "%d-%m-%Y"),acc))
 		
 		return acc
-				
 		
-			
+		
 	'''
-	Returns the number of compensation hours earned at day `date`.
-	If the parameter `date` is not given, returns the number of comp
-	hours for today.
-	
-	The returned value is a float.
+	Returns a FigureCanvasGTK3Agg object that displays a graphical representation
+	of self._offHours
 	'''
-	def get_offHours(self):
-		# /!\ 1h50 every week
-		# 1/4 jours de recup pour 4 shifts de nuit
-		# 2 jours de recup pour le samedi
-		# 2 jours de recup pour le dimanche + 100% de surpaie
-		result = 0.0
-		with open(self._REC_PATH, 'rb') as f:
-			reader = csv.DictReader(f, dialect='excel', delimiter=',')
-			for row in reader:
-				if (row['Shift'] == 'n'):
-					pass
-					
+	def plotOffHours(self):
+		(t, val) = self.orderDict(self._offHours)
+		# Convert date objects to indexes
+		f = Figure(figsize=(6,4), dpi=100)
+		a = f.add_subplot(111)
+		a.plot(t,val, "-o")
+		a.grid(True)
 		
-	def getOffDays(self):
-		h = self.get_offHours()
-		return h/8
+		canvas = FigureCanvas(f)  # a gtk.DrawingArea
+		canvas.show()
 		
+		return canvas
 		
 		
 		
