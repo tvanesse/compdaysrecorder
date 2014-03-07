@@ -266,11 +266,68 @@
                 <property name="homogeneous">True</property>
               </packing>
             </child>
+            <child>
+              <object class="GtkToolButton" id="exportButton">
+                <property name="use_action_appearance">False</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="use_action_appearance">False</property>
+                <property name="label" translatable="yes">Export</property>
+                <property name="use_underline">True</property>
+                <property name="stock_id">gtk-dnd-multiple</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="importButton">
+                <property name="use_action_appearance">False</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="use_action_appearance">False</property>
+                <property name="label" translatable="yes">Import</property>
+                <property name="use_underline">True</property>
+                <property name="stock_id">gtk-sort-ascending</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="toolbutton1">
+                <property name="use_action_appearance">False</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="use_action_appearance">False</property>
+                <property name="label" translatable="yes">Settings</property>
+                <property name="use_underline">True</property>
+                <property name="stock_id">gtk-preferences</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
           </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
             <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkSeparator" id="separator">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="margin_bottom">4</property>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
           </packing>
         </child>
         <child>
@@ -331,9 +388,6 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">Shift type</property>
-                        <attributes>
-                          <attribute name="underline" value="True"/>
-                        </attributes>
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
@@ -354,9 +408,6 @@ enter the extra time here.</property>
                         <property name="halign">start</property>
                         <property name="margin_top">9</property>
                         <property name="label" translatable="yes">Extra time</property>
-                        <attributes>
-                          <attribute name="underline" value="True"/>
-                        </attributes>
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
@@ -562,16 +613,18 @@ enter the extra time here.</property>
                 <property name="margin_right">4</property>
                 <property name="use_action_appearance">False</property>
                 <property name="image">rightArrow</property>
+                <property name="focus_on_click">False</property>
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="fill">True</property>
+                <property name="fill">False</property>
+                <property name="pack_type">end</property>
                 <property name="position">2</property>
               </packing>
             </child>
             <child>
               <object class="GtkAspectFrame" id="plotArea">
-                <property name="width_request">607</property>
+                <property name="width_request">367</property>
                 <property name="can_focus">False</property>
                 <property name="label_xalign">0</property>
                 <property name="shadow_type">none</property>
@@ -590,7 +643,7 @@ enter the extra time here.</property>
           <packing>
             <property name="expand">True</property>
             <property name="fill">True</property>
-            <property name="position">2</property>
+            <property name="position">3</property>
           </packing>
         </child>
         <child>
@@ -618,7 +671,7 @@ enter the extra time here.</property>
             <property name="expand">False</property>
             <property name="fill">True</property>
             <property name="pack_type">end</property>
-            <property name="position">3</property>
+            <property name="position">4</property>
           </packing>
         </child>
       </object>

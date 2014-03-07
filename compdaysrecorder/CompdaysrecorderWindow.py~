@@ -73,7 +73,7 @@ class CompdaysrecorderWindow(Window):
             self.plotArea.show()
             self.displayPlotArea.set_image(self.leftArrow)
         else :
-            
+            self.plotArea.set_visible(False)
             self.displayPlotArea.set_image(self.rightArrow)
             
         
