@@ -41,13 +41,13 @@ class Recorder :
 		return (keysList, valuesList)
 		
 		
-	'''
-	Loads all the _entries in a dictionary where keys are datetime.date objects and
-	values are subdictionary of the form {shift, extra} where
-		- shift is a char amongst {d,a,n,o,h}
-		- extra is an int
-	'''
 	def load_entries(self):
+		"""
+		Loads all the _entries in a dictionary where keys are datetime.date objects and
+		values are subdictionary of the form {shift, extra} where
+			- shift is a char amongst {d,a,n,o,h}
+			- extra is an int
+		"""
 		# Open the file and browse.
 		with open(self._REC_PATH, 'rb') as f:
 			reader = csv.DictReader(f, dialect='excel', delimiter=',')
@@ -58,31 +58,32 @@ class Recorder :
 		
 		return self._entries
 		
-	
-	'''
-	Returns the entry corresponding to the parameter date.
-	The parameter date must be a datetime object.
-	
-	The returned value is either -1 if the entry was not found
-	or a dictionary of the form {shift, extra} where
-		- shift is a char amongst {d,a,n,o,h}
-		- extra is an int
-	'''		
+			
 	def findEntry(self,date):
+		'''
+		Returns the entry corresponding to the parameter date.
+		The parameter date must be a date object.
+	
+		The returned value is either -1 if the entry was not found
+		or a dictionary of the form {shift, extra} where
+			- shift is a char amongst {d,a,n,o,h}
+			- extra is an int
+		'''
 		if date not in self._entries.keys() :
 			return -1
 		else :
 			return self._entries[date]
 		
 			
-	'''
-	Returns the last entry in the record file.
-	The returned value is a dictionary {date, shift, extra}
-	where 
-		- shift is a char amongst {d,a,n,o,h}
-		- extra is an int
-	'''
 	def findLastEntry(self):
+		'''
+		Returns the last entry in the record file.
+		The returned value is a dictionary {date, shift, extra}
+		where 
+			- date is a date object
+			- shift is a char amongst {d,a,n,o,h}
+			- extra is an int
+		'''
 		last = dt.min	# the minimum representable date from datetime module
 		for d in self._entries.keys() :
 			if d > last : last = d
@@ -90,10 +91,10 @@ class Recorder :
 		return {'date':last, 'shift':self._entries[last]['shift'], 'extra':self._entries[last]['extra']}
 		
 	
-	'''
-	Returns the first entry of the record file.
-	'''
 	def findFirstEntry(self):
+		'''
+		Returns the first entry of the record file.
+		'''
 		first = dt.max
 		for d in self._entries.keys():
 			if d < first : first = d
@@ -101,11 +102,11 @@ class Recorder :
 		return {'date':first, 'shift':self._entries[first]['shift'], 'extra':self._entries[first]['extra']}
 	
 	
-	'''
-	Writes an entry to the record file. Overwrite an entry if it
-	already exists.
-	'''
 	def writeEntry(self, date, shift, extra):
+		'''
+		Writes an entry to the record file. Overwrite an entry if it
+		already exists.
+		'''
 		# String convertion
 		dateStr = dt.strftime(date, "%d%m%Y")
 		
@@ -157,15 +158,17 @@ class Recorder :
 	
 	def removeEntry(self, date):
 		#TODO : check if it works
-		# Assert the entry corresponding to `date` is already recorded
+		# Make sure the entry corresponding to `date` is already recorded
 		if self.findEntry(date) != -1 :
 			for line in fileinput.input(self._REC_PATH, inplace=1):
 				if dt.strftime(date, "%d%m%Y") in line :
 					continue
 				else :
 					sys.stdout.write(line)
+			del self._entries[date]
 			return 0
 		else :
+			print("The entry does not exist. There is nothing to delete.")
 			return -1
 		
 		
@@ -176,10 +179,10 @@ class Recorder :
 			return False
 		
 			
-	'''
-	Compute the compensation hours by browsing the _entries and populating self._offHours
-	'''
 	def computeOffHours(self):
+		'''
+		Compute the compensation hours by browsing the _entries and populating self._offHours
+		'''
 		acc = 0
 		# Browse the _entries
 		for (k, v) in self._entries.items() :
@@ -199,17 +202,15 @@ class Recorder :
 					acc += self._STD_DAY*self._NIGHT_TIME_BONUS
 					
 			self._offHours[k] = acc
-			
-#			print("{} : ACC == {}".format(dt.strftime(k, "%d-%m-%Y"),acc))
 		
 		return acc
 		
 		
-	'''
-	Returns a FigureCanvasGTK3Agg object that displays a graphical representation
-	of self._offHours
-	'''
 	def plotOffHours(self):
+		'''
+		Returns a FigureCanvasGTK3Agg object that displays a graphical representation
+		of self._offHours
+		'''
 		(t, val) = self.orderDict(self._offHours)
 		# Convert date objects to indexes
 		f = Figure(figsize=(6,4), dpi=100)

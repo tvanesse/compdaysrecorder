@@ -50,9 +50,10 @@ class CompdaysrecorderWindow(Window):
         # Spin button
         self.extraSpinButton = self.builder.get_object("extraSpinButton")
         
-        # Edit and Save buttons
+        # Edit, Save and Delete buttons
         self.editButton = self.builder.get_object("editButton")
         self.saveButton = self.builder.get_object("saveButton")
+        self.deleteButton = self.builder.get_object("deleteButton")
         
         # Calendar
         self.calendar = self.builder.get_object("calendar")
@@ -109,6 +110,9 @@ class CompdaysrecorderWindow(Window):
             self.oRadioButton.set_sensitive(True)
             self.hRadioButton.set_sensitive(True)
             self.extraSpinButton.set_sensitive(True)
+            self.editButton.set_sensitive(False)
+            self.saveButton.set_sensitive(True)
+            self.deleteButton.set_sensitive(False)
         else :
             self.dRadioButton.set_sensitive(False)
             self.aRadioButton.set_sensitive(False)
@@ -116,6 +120,9 @@ class CompdaysrecorderWindow(Window):
             self.oRadioButton.set_sensitive(False)
             self.hRadioButton.set_sensitive(False)
             self.extraSpinButton.set_sensitive(False)
+            self.editButton.set_sensitive(True)
+            self.saveButton.set_sensitive(False)
+            self.deleteButton.set_sensitive(True)
             
     def updateCompDays(self) :
         off = self.recorder.computeOffHours()
@@ -168,5 +175,12 @@ class CompdaysrecorderWindow(Window):
         
         self.recorder.writeEntry(dateObj, shift, extra)
         self.enableEdition(False)
+        self.updateCompDays()
+        
+    def on_deleteButton_clicked(self, widget):
+        year, month, day = self.calendar.get_date()
+        dateObj = date(year, month+1, day)
+        self.recorder.removeEntry(dateObj)
+        self.enableEdition(True)
         self.updateCompDays()
         
