@@ -79,7 +79,7 @@ class Recorder :
 	Returns the last entry in the record file.
 	The returned value is a dictionary {date, shift, extra}
 	where 
-		- date is a datetime object
+		- date is a date object
 		- shift is a char amongst {d,a,n,o,h}
 		- extra is an int
 	'''
@@ -157,6 +157,7 @@ class Recorder :
 		
 	
 	def removeEntry(self, date):
+		#TODO : check if it works
 		# Assert the entry corresponding to `date` is already recorded
 		if self.findEntry(date) != -1 :
 			for line in fileinput.input(self._REC_PATH, inplace=1):
@@ -216,6 +217,7 @@ class Recorder :
 		a = f.add_subplot(111)
 		a.plot(t,val, "-o")
 		a.grid(True)
+		f.autofmt_xdate()
 		
 		canvas = FigureCanvas(f)  # a gtk.DrawingArea
 		canvas.show()
