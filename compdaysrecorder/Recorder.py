@@ -10,7 +10,7 @@ import sys
 # Matplotlib
 from matplotlib.backends.backend_gtk3agg import FigureCanvasGTK3Agg as FigureCanvas
 from matplotlib.figure import Figure
-from numpy import *
+import numpy as np
 
 class Recorder :
 	
@@ -216,14 +216,24 @@ class Recorder :
 		# Convert date objects to indexes
 		f = Figure(figsize=(6,4), dpi=100)
 		a = f.add_subplot(111)
-		a.plot(t,val, "-o")
+#		(t_pos, val_pos) = [(i,v) for v in val if v>0]
+#		(t_neg, val_neg) = [(i,v) for v in val if v<0]
+#		a.plot(t,val_pos, color='green', alpha=1.00)
+#		f.hold(True)
+#		a.plot(t,val_neg, color='red', alpha=1.00)
+		
+		z = np.zeros(len(t))
+		a.fill_between(t, z, val, np.array(val) > 0.0, color='green', alpha=.25, interpolate=True)
+		a.fill_between(t, z, val, np.array(val) < 0.0, color='red', alpha=.25, interpolate=True)
+		
 		a.grid(True)
 		f.autofmt_xdate()
+		
 		# Generate the ticks
 		ticks = list()
 		tick_labels = list()
 		ticks.append(t[0])
-		tick_labels.append(dt.strftime(t[0], "%b %y").decode("utf-8"))
+		tick_labels.append(dt.strftime(t[0], "%b %y").decode("utf-8"))	# avoids problems with the accentuated months
 		
 		curr_month = t[0].month
 		for d in t:
