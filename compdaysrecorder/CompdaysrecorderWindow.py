@@ -1,4 +1,5 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
+# -*- coding: utf-8 -*-
 ### BEGIN LICENSE
 # This file is in the public domain
 ### END LICENSE
@@ -35,7 +36,6 @@ class CompdaysrecorderWindow(Window):
 
         # Code for other initialization actions should be added here.
         self.recorder = Recorder()
-        self.testButton = self.builder.get_object("testButton")
         
         # Date label
         self.dateLabel = self.builder.get_object("dateLabel")
@@ -94,7 +94,6 @@ class CompdaysrecorderWindow(Window):
             self.plotArea.hide()
             self.displayPlotArea.set_image(self.downArrow)
             
-        
     def whoIsActive(self):
         if (self.dRadioButton.get_active()) : return 'd'
         elif (self.aRadioButton.get_active()) : return 'a'
@@ -131,10 +130,7 @@ class CompdaysrecorderWindow(Window):
         else :
             self.compDaysLabel.override_color(0, Gdk.RGBA(0,1,0,1))
         self.compDaysLabel.set_text(str(off/8))
-            
         
-    def on_testButton_clicked(self, widget):
-        print("You know nothing John Snow")
 
     def on_calendar_daySelected(self, widget):
         # Parse the date selected

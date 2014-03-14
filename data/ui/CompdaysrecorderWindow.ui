@@ -8,6 +8,21 @@
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
+  <object class="GtkImage" id="downArrow">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-goto-bottom</property>
+  </object>
+  <object class="GtkImage" id="exportImage">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="pixbuf">export.png</property>
+  </object>
+  <object class="GtkImage" id="importImage">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="pixbuf">import.png</property>
+  </object>
   <object class="CompdaysrecorderWindow" id="compdaysrecorder_window">
     <property name="width_request">500</property>
     <property name="can_focus">False</property>
@@ -237,14 +252,14 @@
             <property name="can_focus">False</property>
             <property name="toolbar_style">both</property>
             <child>
-              <object class="GtkToolButton" id="testButton">
+              <object class="GtkToolButton" id="importButton">
                 <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="use_action_appearance">False</property>
-                <property name="label" translatable="yes">Test</property>
+                <property name="label" translatable="yes">Import</property>
                 <property name="use_underline">True</property>
-                <property name="stock_id">gtk-media-record</property>
+                <property name="icon_widget">importImage</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -260,21 +275,6 @@
                 <property name="label" translatable="yes">Export</property>
                 <property name="use_underline">True</property>
                 <property name="icon_widget">exportImage</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="homogeneous">True</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkToolButton" id="importButton">
-                <property name="use_action_appearance">False</property>
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="use_action_appearance">False</property>
-                <property name="label" translatable="yes">Import</property>
-                <property name="use_underline">True</property>
-                <property name="stock_id">gtk-sort-ascending</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -725,16 +725,6 @@ enter the extra time here.</property>
         </child>
       </object>
     </child>
-  </object>
-  <object class="GtkImage" id="downArrow">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-goto-bottom</property>
-  </object>
-  <object class="GtkImage" id="exportImage">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixbuf">export_1.svg</property>
   </object>
   <object class="GtkImage" id="upArrow">
     <property name="visible">True</property>

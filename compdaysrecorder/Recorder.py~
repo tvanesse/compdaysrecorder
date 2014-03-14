@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from datetime import datetime, timedelta
 from datetime import date as dt
 import csv
@@ -218,6 +219,21 @@ class Recorder :
 		a.plot(t,val, "-o")
 		a.grid(True)
 		f.autofmt_xdate()
+		# Generate the ticks
+		ticks = list()
+		tick_labels = list()
+		ticks.append(t[0])
+		tick_labels.append(dt.strftime(t[0], "%b %y").decode("utf-8"))
+		
+		curr_month = t[0].month
+		for d in t:
+			if d.month != curr_month :
+				curr_month = d.month
+				ticks.append(dt(day=1,month=curr_month, year=d.year))
+				tick_labels.append(dt.strftime(d, "%b %y"))
+		
+		a.set_xticks(ticks)
+		a.set_xticklabels(tick_labels)
 		
 		canvas = FigureCanvas(f)  # a gtk.DrawingArea
 		canvas.show()
