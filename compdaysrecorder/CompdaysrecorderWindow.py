@@ -1,5 +1,4 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
-# -*- coding: utf-8 -*-
 ### BEGIN LICENSE
 # This file is in the public domain
 ### END LICENSE
