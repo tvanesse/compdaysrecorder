@@ -1,61 +1,85 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <title>CompDays Recorder by tvanesse</title>
 
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-
-    <title>CompDays Recorder by tvanesse</title>
   </head>
-
   <body>
-    <header>
-      <div class="inner">
-        <h1>CompDays Recorder</h1>
-        <h2>A simple Gtk application that keeps track of your overtime</h2>
-        <a href="https://github.com/tvanesse/compdaysrecorder" class="button"><small>View project on</small>GitHub</a>
-      </div>
-    </header>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">CompDays Recorder</h1>
+        <p class="header">A simple Ubuntu application that keeps track of your overtime</p>
 
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <h2>
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/tvanesse/compdaysrecorder/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/tvanesse/compdaysrecorder/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/tvanesse/compdaysrecorder">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/tvanesse">tvanesse</a></p>
+
+
+      </header>
+      <section>
+        <h2>
 <a name="what-is-compdays-recorder-" class="anchor" href="#what-is-compdays-recorder-"><span class="octicon octicon-link"></span></a>What is CompDays Recorder ?</h2>
 
 <p>This is a simple Gtk application developed with quickly. The purpose is to build a tool that keeps track of working overtimes and computes compensation days.</p>
 
 <h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>For the time being there is no official release since the project is under development. If you still want to run <em>CompDays Recorder</em>, you will need to install some dependencies.</p>
+
+<h3>
+<a name="dependencies" class="anchor" href="#dependencies"><span class="octicon octicon-link"></span></a>Dependencies</h3>
+
+<ul>
+<li>
+<code>python 2.7</code> or higher</li>
+<li>
+<code>matplotlib</code> version 1.2.0 or higher</li>
+<li>
+<code>quickly</code> the ultimate development tool from Canonical :-)</li>
+</ul><p>Under Ubuntu, <code>quickly</code> can be simply installed by</p>
+
+<div class="highlight highlight-bash"><pre><span class="nv">$ </span>sudo apt-get install quickly
+</pre></div>
+
+<p>Beware that if you are running <strong>Ubuntu below 13.04</strong> (<em>Raring Ringtail</em>) the version of <code>matplotlib</code> provided on the universe repository is a bit outdated (1.1.1 at the time this is written). So please follow the setup instructions on the <a href="http://matplotlib.org/users/installing.html#installing-from-source">official website</a>.</p>
+
+<p>If you are running <strong>Ubuntu 13.04 or higher</strong>, the packet has been updated and you can simply run <code>sudo apt-get install python-matplotlib</code>.</p>
+
+<p>In order to make sure you have the right version, open a terminal and do</p>
+
+<pre><code>$ python
+Python 2.7.4 (default, Sep 26 2013, 03:20:26) 
+[GCC 4.7.3] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+&gt;&gt;&gt; import matplotlib
+&gt;&gt;&gt; matplotlib.__version__   # make sure you have a version above 1.2.0
+'1.2.1'   # OK
+</code></pre>
+
+<h2>
 <a name="target-platforms" class="anchor" href="#target-platforms"><span class="octicon octicon-link"></span></a>Target platforms</h2>
 
-<p>This application is developed for <strong>Ubuntu</strong>. Other platforms might be supported in the future.</p>
-        </section>
-
-        <aside id="sidebar">
-          <a href="https://github.com/tvanesse/compdaysrecorder/zipball/master" class="button">
-            <small>Download</small>
-            .zip file
-          </a>
-          <a href="https://github.com/tvanesse/compdaysrecorder/tarball/master" class="button">
-            <small>Download</small>
-            .tar.gz file
-          </a>
-
-          <p class="repo-owner"><a href="https://github.com/tvanesse/compdaysrecorder"></a> is maintained by <a href="https://github.com/tvanesse">tvanesse</a>.</p>
-
-          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
-        </aside>
-      </div>
+<p>The application is developed for Ubuntu. Other platforms might be supported in the future.</p>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
     </div>
-
-  
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
   </body>
 </html>
