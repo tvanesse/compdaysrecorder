@@ -32,6 +32,14 @@ Type "help", "copyright", "credits" or "license" for more information.
 '1.2.1'   # OK
 ```
 
+### Run it !
+Just clone the git repo on your own machine. Then at the root of the project do
+
+```
+$ quickly run
+```
+this is that simple :-)
+
 
 ## Target platforms
 
