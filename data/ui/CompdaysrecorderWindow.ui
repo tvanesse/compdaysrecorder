@@ -8,20 +8,10 @@
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
-  <object class="GtkImage" id="downArrow">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-goto-bottom</property>
-  </object>
   <object class="GtkImage" id="exportImage">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="pixbuf">export.png</property>
-  </object>
-  <object class="GtkImage" id="importImage">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixbuf">import.png</property>
   </object>
   <object class="CompdaysrecorderWindow" id="compdaysrecorder_window">
     <property name="width_request">500</property>
@@ -40,7 +30,6 @@
             <property name="can_focus">False</property>
             <child>
               <object class="GtkMenuItem" id="mnu_file">
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">_File</property>
@@ -52,7 +41,6 @@
                     <child>
                       <object class="GtkImageMenuItem" id="mnu_new">
                         <property name="label">gtk-new</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
@@ -63,7 +51,6 @@
                     <child>
                       <object class="GtkImageMenuItem" id="mnu_open">
                         <property name="label">gtk-open</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
@@ -80,7 +67,6 @@
                     <child>
                       <object class="GtkImageMenuItem" id="mnu_save">
                         <property name="label">gtk-save</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
@@ -91,7 +77,6 @@
                     <child>
                       <object class="GtkImageMenuItem" id="mnu_save_as">
                         <property name="label">gtk-save-as</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
@@ -108,7 +93,6 @@
                     <child>
                       <object class="GtkImageMenuItem" id="mnu_close">
                         <property name="label">gtk-close</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
@@ -122,7 +106,6 @@
             </child>
             <child>
               <object class="GtkMenuItem" id="mnu_edit">
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">_Edit</property>
@@ -134,7 +117,6 @@
                     <child>
                       <object class="GtkImageMenuItem" id="mnu_cut">
                         <property name="label">gtk-cut</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
@@ -145,7 +127,6 @@
                     <child>
                       <object class="GtkImageMenuItem" id="mnu_copy">
                         <property name="label">gtk-copy</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
@@ -156,7 +137,6 @@
                     <child>
                       <object class="GtkImageMenuItem" id="mnu_paste">
                         <property name="label">gtk-paste</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
@@ -167,7 +147,6 @@
                     <child>
                       <object class="GtkImageMenuItem" id="mnu_delete">
                         <property name="label">gtk-delete</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
@@ -184,7 +163,6 @@
                     <child>
                       <object class="GtkImageMenuItem" id="mnu_preferences">
                         <property name="label">gtk-preferences</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
@@ -197,7 +175,6 @@
             </child>
             <child>
               <object class="GtkMenuItem" id="mnu_view">
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">_View</property>
@@ -206,7 +183,6 @@
             </child>
             <child>
               <object class="GtkMenuItem" id="mnu_help">
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">_Help</property>
@@ -218,7 +194,6 @@
                     <child>
                       <object class="GtkImageMenuItem" id="mnu_contents">
                         <property name="label" translatable="yes">Contents</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_stock">False</property>
@@ -228,7 +203,6 @@
                     <child>
                       <object class="GtkImageMenuItem" id="mnu_about">
                         <property name="label">gtk-about</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
@@ -253,10 +227,8 @@
             <property name="toolbar_style">both</property>
             <child>
               <object class="GtkToolButton" id="importButton">
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="use_action_appearance">False</property>
                 <property name="label" translatable="yes">Import</property>
                 <property name="use_underline">True</property>
                 <property name="icon_widget">importImage</property>
@@ -268,10 +240,8 @@
             </child>
             <child>
               <object class="GtkToolButton" id="exportButton">
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="use_action_appearance">False</property>
                 <property name="label" translatable="yes">Export</property>
                 <property name="use_underline">True</property>
                 <property name="icon_widget">exportImage</property>
@@ -283,10 +253,8 @@
             </child>
             <child>
               <object class="GtkToolButton" id="toolbutton1">
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="use_action_appearance">False</property>
                 <property name="label" translatable="yes">Settings</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-preferences</property>
@@ -298,10 +266,8 @@
             </child>
             <child>
               <object class="GtkToolButton" id="aboutButton">
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="use_action_appearance">False</property>
                 <property name="label" translatable="yes">About</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-help</property>
@@ -409,11 +375,9 @@ enter the extra time here.</property>
                         <child>
                           <object class="GtkRadioButton" id="dRadioButton">
                             <property name="label" translatable="yes">Day</property>
-                            <property name="use_action_appearance">False</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
-                            <property name="use_action_appearance">False</property>
                             <property name="xalign">0</property>
                             <property name="yalign">0.47999998927116394</property>
                             <property name="draw_indicator">True</property>
@@ -428,11 +392,9 @@ enter the extra time here.</property>
                         <child>
                           <object class="GtkRadioButton" id="aRadioButton">
                             <property name="label" translatable="yes">Afternoon</property>
-                            <property name="use_action_appearance">False</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
-                            <property name="use_action_appearance">False</property>
                             <property name="xalign">0</property>
                             <property name="active">True</property>
                             <property name="draw_indicator">True</property>
@@ -447,11 +409,9 @@ enter the extra time here.</property>
                         <child>
                           <object class="GtkRadioButton" id="nRadioButton">
                             <property name="label" translatable="yes">Night</property>
-                            <property name="use_action_appearance">False</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
-                            <property name="use_action_appearance">False</property>
                             <property name="xalign">0</property>
                             <property name="active">True</property>
                             <property name="draw_indicator">True</property>
@@ -466,11 +426,9 @@ enter the extra time here.</property>
                         <child>
                           <object class="GtkRadioButton" id="oRadioButton">
                             <property name="label" translatable="yes">Off</property>
-                            <property name="use_action_appearance">False</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
-                            <property name="use_action_appearance">False</property>
                             <property name="xalign">0</property>
                             <property name="active">True</property>
                             <property name="draw_indicator">True</property>
@@ -485,11 +443,9 @@ enter the extra time here.</property>
                         <child>
                           <object class="GtkRadioButton" id="hRadioButton">
                             <property name="label" translatable="yes">Holiday/Weekend</property>
-                            <property name="use_action_appearance">False</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
-                            <property name="use_action_appearance">False</property>
                             <property name="xalign">0</property>
                             <property name="active">True</property>
                             <property name="draw_indicator">True</property>
@@ -606,11 +562,9 @@ enter the extra time here.</property>
                     <child>
                       <object class="GtkButton" id="editButton">
                         <property name="label" translatable="yes">Edit</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
-                        <property name="use_action_appearance">False</property>
                       </object>
                       <packing>
                         <property name="expand">True</property>
@@ -621,11 +575,9 @@ enter the extra time here.</property>
                     <child>
                       <object class="GtkButton" id="saveButton">
                         <property name="label" translatable="yes">Save</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
-                        <property name="use_action_appearance">False</property>
                       </object>
                       <packing>
                         <property name="expand">True</property>
@@ -636,11 +588,9 @@ enter the extra time here.</property>
                     <child>
                       <object class="GtkButton" id="deleteButton">
                         <property name="label" translatable="yes">Delete</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
-                        <property name="use_action_appearance">False</property>
                       </object>
                       <packing>
                         <property name="expand">True</property>
@@ -668,12 +618,15 @@ enter the extra time here.</property>
                 <property name="height_request">160</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="has_focus">True</property>
+                <property name="is_focus">True</property>
+                <property name="tooltip_markup" translatable="yes">Select a day</property>
+                <property name="tooltip_text" translatable="yes">Select a day</property>
                 <property name="year">2014</property>
                 <property name="month">2</property>
                 <property name="day">1</property>
                 <property name="show_week_numbers">True</property>
                 <property name="show_details">False</property>
-                <signal name="day-selected" handler="on_calendar_daySelected" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -691,12 +644,10 @@ enter the extra time here.</property>
         </child>
         <child>
           <object class="GtkToggleButton" id="displayPlotArea">
-            <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="margin_right">4</property>
-            <property name="use_action_appearance">False</property>
             <property name="image">downArrow</property>
             <property name="focus_on_click">False</property>
           </object>
@@ -724,6 +675,16 @@ enter the extra time here.</property>
         </child>
       </object>
     </child>
+  </object>
+  <object class="GtkImage" id="downArrow">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-goto-bottom</property>
+  </object>
+  <object class="GtkImage" id="importImage">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="pixbuf">import.png</property>
   </object>
   <object class="GtkImage" id="upArrow">
     <property name="visible">True</property>
