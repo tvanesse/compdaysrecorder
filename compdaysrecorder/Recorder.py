@@ -9,7 +9,7 @@ import sys
 
 # Matplotlib
 from matplotlib.backends.backend_gtk3agg import FigureCanvasGTK3Agg as FigureCanvas
-from matplotlib.figure import Figure
+from matplotlib import pyplot as plt
 import numpy as np
 
 class Recorder :
@@ -21,6 +21,7 @@ class Recorder :
 		self._NIGHT_TIME_BONUS = 0.25		# I earn (_STD_DAY * NIGHT_BONUS) compensation hours if I work by night
 		self._SUN_TIME_BONUS = 1
 		self._OVT_TIME_BONUS = 0			# extra time
+		self._OFFSET = 110
 		
 		# Keeps track of the compensation hours earned/lost day after day.
 		self._offHours = dict()
@@ -184,7 +185,7 @@ class Recorder :
 		'''
 		Compute the compensation hours by browsing the _entries and populating self._offHours
 		'''
-		acc = 0
+		acc = self._OFFSET
 		# Browse the _entries
 		for (k, v) in self._entries.items() :
 			shift = v['shift']
@@ -213,19 +214,13 @@ class Recorder :
 		of self._offHours
 		'''
 		(t, val) = self.orderDict(self._offHours)
-		# Convert date objects to indexes
-		f = Figure(figsize=(6,4), dpi=100)
-		a = f.add_subplot(111)
-#		(t_pos, val_pos) = [(i,v) for v in val if v>0]
-#		(t_neg, val_neg) = [(i,v) for v in val if v<0]
-#		a.plot(t,val_pos, color='green', alpha=1.00)
-#		f.hold(True)
-#		a.plot(t,val_neg, color='red', alpha=1.00)
 		
+		#plt.xkcd(scale=1, length=100, randomness=2)
+		f = plt.figure(figsize=(6,4), dpi=100)
+		a = f.add_subplot(111)
 		z = np.zeros(len(t))
 		a.fill_between(t, z, val, np.array(val) > 0.0, color='green', alpha=.25, interpolate=True)
 		a.fill_between(t, z, val, np.array(val) < 0.0, color='red', alpha=.25, interpolate=True)
-		
 		a.grid(True)
 		f.autofmt_xdate()
 		
@@ -250,6 +245,3 @@ class Recorder :
 		
 		return canvas
 		
-		
-		
-				
