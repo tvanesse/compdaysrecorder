@@ -214,31 +214,39 @@ class Recorder :
 		of self._offHours
 		'''
 		(t, val) = self.orderDict(self._offHours)
+		t = np.array(t)
+		val = np.array(val)
+		
+		val = val/self._STD_DAY
 		
 		#plt.xkcd(scale=1, length=100, randomness=2)
 		f = plt.figure(figsize=(6,4), dpi=100)
 		a = f.add_subplot(111)
 		z = np.zeros(len(t))
-		a.fill_between(t, z, val, np.array(val) > 0.0, color='green', alpha=.25, interpolate=True)
-		a.fill_between(t, z, val, np.array(val) < 0.0, color='red', alpha=.25, interpolate=True)
+		a.fill_between(t, z, val, val > 0.0, color='green', alpha=.25, interpolate=True)
+		a.fill_between(t, z, val, val < 0.0, color='red', alpha=.25, interpolate=True)
 		a.grid(True)
 		f.autofmt_xdate()
 		
-		# Generate the ticks
-		ticks = list()
-		tick_labels = list()
-		ticks.append(t[0])
-		tick_labels.append(dt.strftime(t[0], "%b %y").decode("utf-8"))	# avoids problems with the accentuated months
+		# Generate X ticks
+		xticks = list()
+		xtick_labels = list()
+		xticks.append(t[0])
+		xtick_labels.append(dt.strftime(t[0], "%b %y").decode("utf-8"))	# avoids problems with the accentuated months
 		
 		curr_month = t[0].month
 		for d in t:
 			if d.month != curr_month :
 				curr_month = d.month
-				ticks.append(dt(day=1,month=curr_month, year=d.year))
-				tick_labels.append(dt.strftime(d, "%b %y").decode("utf-8"))
+				xticks.append(dt(day=1,month=curr_month, year=d.year))
+				xtick_labels.append(dt.strftime(d, "%b %y").decode("utf-8"))
 		
-		a.set_xticks(ticks)
-		a.set_xticklabels(tick_labels)
+		a.set_xticks(xticks)
+		a.set_xticklabels(xtick_labels, fontsize=8)
+		
+		# Generate Y ticks
+		yticks = np.arange(min(val), max(val), 2.5)
+		a.set_yticks(yticks)
 		
 		canvas = FigureCanvas(f)  # a gtk.DrawingArea
 		canvas.show()
