@@ -1,6 +1,6 @@
 ## What is CompDays Recorder ?
 
-This is a simple Gtk application developed with quickly. The purpose is to build a tool that keeps track of working overtimes and computes compensation days.
+This is a simple Gtk application developed with `quickly`. The purpose is to build a tool that keeps track of working overtimes and computes compensation days.
 
 ## Installation
 For the time being there is no official release since the project is under development. If you still want to run *CompDays Recorder*, you will need to install some dependencies.
