@@ -20,7 +20,7 @@ Beware that if you are running **Ubuntu below 13.04** (*Raring Ringtail*) the ve
 
 If you are running **Ubuntu 13.04 or higher**, the packet has been updated and you can simply run ```sudo apt-get install python-matplotlib```.
 
-In order to make sure you have the right version, open a terminal and do
+In order to make sure you have the right version, open a terminal and type
 
 ```
 $ python
@@ -38,7 +38,7 @@ Just clone the git repo on your own machine. Then at the root of the project do
 ```
 $ quickly run
 ```
-this is that simple :-)
+it's that simple :-)
 
 
 ## Target platforms
